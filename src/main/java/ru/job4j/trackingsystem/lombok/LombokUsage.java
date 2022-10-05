@@ -12,5 +12,11 @@ public class LombokUsage {
         item.setId("1");
         System.out.println(item);
 
+        var category = new Category(3);
+        category.setName("value");
+        System.out.println(category.getName());
+        System.out.println(category);
+        System.out.println(category.hashCode());
+
     }
 }
