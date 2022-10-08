@@ -8,8 +8,20 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
 
+/**
+ * SessionFactory - это конфигуратор.
+ * Создается один раз на все приложение.
+ * SessionFactory имеет метод openSession,
+ * отдает объект Session. Session позволяет
+ * записать, удалить и прочитать данные из БД.
+ */
 public class HibernateRun {
     public static void main(String[] args) {
+        /**
+         * Получение SessionFactory, создается через фабрику,
+         * configure() читает файл hibernate.cfg.xml и
+         * выполняет инициализация пула и кешей.
+         */
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try {
