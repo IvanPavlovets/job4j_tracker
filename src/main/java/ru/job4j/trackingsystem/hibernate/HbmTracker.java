@@ -27,25 +27,24 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public boolean replace(Integer id, Item item) {
         boolean rsl = false;
-        try (Session session = sf.openSession()) {
-            session.beginTransaction();
-            session.createQuery(
-                    "UPDATE Item as i SET i.name = :fName, i.description = :fDescription"
-                            + " where id = :fId")
-                    .setParameter("fName", item.getName())
-                    .setParameter("fDescription", item.getDescription())
-                    .setParameter("fId", id)
-                    .executeUpdate();
-            session.getTransaction().commit();
-            rsl = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Session session = sf.openSession();
+        session.beginTransaction();
+        session.createQuery(
+                "UPDATE Item as i SET i.name = :fName, i.description = :fDescription"
+                        + " where id = :fId")
+                .setParameter("fName", item.getName())
+                .setParameter("fDescription", item.getDescription())
+                .setParameter("fId", id)
+                .executeUpdate();
+        session.getTransaction().commit();
+        rsl = true;
+        session.close();
         return rsl;
     }
 
     @Override
     public boolean delete(Integer id) {
+        boolean rsl = false;
         Session session = sf.openSession();
         session.beginTransaction();
         session.createQuery(
@@ -53,8 +52,9 @@ public class HbmTracker implements Store, AutoCloseable {
                 .setParameter("fId", id)
                 .executeUpdate();
         session.getTransaction().commit();
+        rsl = true;
         session.close();
-        return false;
+        return rsl;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class HbmTracker implements Store, AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
         List<Item> itemList = session.createQuery(
-                "from ru.job4j.trackingsystem.hibernate.Item").list();
+                "from Item").list();
         session.getTransaction().commit();
         session.close();
         return itemList;
@@ -73,10 +73,12 @@ public class HbmTracker implements Store, AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
         List<Item> itemList = session.createQuery(
-                "from Item where name = :key").list();
+                "from Item where name = :fKey")
+                .setParameter("fKey", key)
+                .list();
         session.getTransaction().commit();
         session.close();
-        return null;
+        return itemList;
     }
 
     @Override
