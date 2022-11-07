@@ -14,5 +14,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
         <mapping class="ru.job4j.trackingsystem.hibernate.Item" />
+        <mapping class="ru.job4j.trackingsystem.hibernate.toone.Role" />
+        <mapping class="ru.job4j.trackingsystem.hibernate.toone.User" />
     </session-factory>
 </hibernate-configuration>
