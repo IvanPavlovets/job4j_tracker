@@ -1,4 +1,4 @@
-package ru.job4j.trackingsystem.hibernate;
+package ru.job4j.trackingsystem.hibernate.hql;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,8 +6,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-
-import java.util.List;
 
 /**
  * 1. SessionFactory - конфигуратор

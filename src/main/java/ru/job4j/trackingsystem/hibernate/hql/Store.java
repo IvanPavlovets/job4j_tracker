@@ -1,4 +1,4 @@
-package ru.job4j.trackingsystem.hibernate;
+package ru.job4j.trackingsystem.hibernate.hql;
 
 import java.util.List;
 
