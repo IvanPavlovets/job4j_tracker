@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -28,5 +29,5 @@ public class User {
      */
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "j_user_id")
-    private List<UserMessenger> messengers;
+    private List<UserMessenger> messengers = new ArrayList<>();
 }

@@ -36,10 +36,6 @@ public class HbmRun {
                     .getSingleResult();
             stored.getMessengers().forEach(System.out::println);
 
-//            findAll(User.class, sf)
-//                    .forEach(System.out::println);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
