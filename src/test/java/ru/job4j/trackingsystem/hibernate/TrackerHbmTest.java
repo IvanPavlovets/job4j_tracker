@@ -40,8 +40,8 @@ public class TrackerHbmTest {
     public void whenDeleteItemThenTrackerHasNotItem() throws Exception {
         try (var tracker = new HbmTracker()) {
             var item = new Item();
-            item.setName("t");
-            item.setDescription("d");
+            item.setName("qqq");
+            item.setDescription("www");
             tracker.add(item);
             tracker.delete(item.getId());
             int result = tracker.findByName(item.getName()).size();
