@@ -7,6 +7,13 @@ import ru.job4j.trackingsystem.menu.MenuTracker;
 import ru.job4j.trackingsystem.model.Store;
 import ru.job4j.trackingsystem.tracker.SqlTracker;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
 /**
  * Класс с системой ввода/вывода для работы с пользовательм.
  */
@@ -50,6 +57,41 @@ public class StartUI {
     }
 
     /**
+     * Переменные окружения используется для запуска liquibase,
+     * но не используется в самом приложении.
+     * Нам нужно добавить эту возможность так же.
+     */
+    private static String loadSysEnvIfNullThenConfig(String sysEnv, String key, Properties config) {
+        String value = System.getenv(sysEnv);
+        if (value == null) {
+            value = config.getProperty(key);
+        }
+        return value;
+    }
+
+    /**
+     * Docker сервисы
+     */
+    private static Connection loadConnection() throws ClassNotFoundException, SQLException {
+        var config = new Properties();
+        try (InputStream in = StartUI.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
+            config.load(in);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+        String url = loadSysEnvIfNullThenConfig("JDBC_URL", "url", config);
+        String username = loadSysEnvIfNullThenConfig("JDBC_USERNAME", "username", config);
+        String password = loadSysEnvIfNullThenConfig("JDBC_PASSWORD", "password", config);
+        String driver = loadSysEnvIfNullThenConfig("JDBC_DRIVER", "driver-class-name", config);
+        System.out.println("url=" + url);
+        Class.forName(driver);
+        return DriverManager.getConnection(
+                url, username, password
+        );
+    }
+
+    /**
      * Запускт программы.
      * Вариант запуска с помощью MemeTracker
      *     public static void main(String[] args) {
@@ -62,7 +104,8 @@ public class StartUI {
      */
     public static void main(String[] args) {
         Input validate = new ValidateInput(new ConsoleInput());
-        try (Store tracker = new SqlTracker()) {
+        try (Connection connection = loadConnection();
+            Store tracker = new SqlTracker()) {
             tracker.init();
             StartUI startUI = new StartUI(validate, tracker);
             startUI.init();
