@@ -104,8 +104,8 @@ public class StartUI {
      */
     public static void main(String[] args) {
         Input validate = new ValidateInput(new ConsoleInput());
-        try (Connection connection = loadConnection();
-            Store tracker = new SqlTracker()) {
+        try (Connection connection = loadConnection()) {
+            Store tracker = new SqlTracker(connection);
             tracker.init();
             StartUI startUI = new StartUI(validate, tracker);
             startUI.init();

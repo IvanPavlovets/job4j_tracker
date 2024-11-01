@@ -6,6 +6,4 @@ WORKDIR job4j_tracker
 
 COPY . .
 
-RUN mvn package -Dmaven.test.skip=true
-
-CMD ["java", "-jar", "target/tracker.jar"]
+CMD ["mvn", "liquibase:update", "-Pdocker"]

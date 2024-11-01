@@ -14,7 +14,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <docker_db_url_jdbc>${JDBC_URL}</docker_db_url_jdbc>
+        <docker.db.url.jdbc>${JDBC_URL}</docker.db.url.jdbc>
+        <docker.db.username.jdbc>${JDBC_USERNAME}</docker.db.username.jdbc>
+        <docker.db.password.jdbc>${JDBC_PASSWORD}</docker.db.password.jdbc>
+        <docker.db.driver.jdbc>${JDBC_DRIVER}</docker.db.driver.jdbc>
     </properties>
 
     <profiles>
@@ -43,9 +46,9 @@
             <id>docker</id>
             <properties>
                 <liquibase.changeLogFile>db/dbchangelog.xml</liquibase.changeLogFile>
-                <liquibase.url>${docker_db_url_jdbc}</liquibase.url>
-                <liquibase.username>postgres</liquibase.username>
-                <liquibase.password>password</liquibase.password>
+                <liquibase.url>${docker.db.url.jdbc}</liquibase.url>
+                <liquibase.username>${docker.db.username.jdbc}</liquibase.username>
+                <liquibase.password>${docker.db.password.jdbc}</liquibase.password>
             </properties>
         </profile>
     </profiles>
