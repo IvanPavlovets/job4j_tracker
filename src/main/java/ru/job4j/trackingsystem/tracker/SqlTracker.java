@@ -12,7 +12,7 @@ public class SqlTracker implements Store {
     /**
      * Хранит соединение с бд, подключение получает по url, username, password.
      */
-    private Connection cn;
+    protected Connection cn;
 
     public SqlTracker() {
     }
@@ -40,8 +40,10 @@ public class SqlTracker implements Store {
             e.printStackTrace();
         }
         try {
-            cn = DriverManager.getConnection(config.get("url"),
-                    config.get("username"), config.get("password"));
+            cn = DriverManager.getConnection(
+                    config.get("url"),
+                    config.get("username"),
+                    config.get("password"));
             if (cn != null) {
                 result = true;
                 log("Соединение успешно созданно! Можно добавлять данные");
