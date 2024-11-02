@@ -14,9 +14,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.url.jdbc>${JDBC_URL}</docker.db.url.jdbc>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.username.jdbc>${JDBC_USERNAME}</docker.db.username.jdbc>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.password.jdbc>${JDBC_PASSWORD}</docker.db.password.jdbc>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.driver.jdbc>${JDBC_DRIVER}</docker.db.driver.jdbc>
     </properties>
 
@@ -124,7 +128,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.3.0</version>
                     <executions>
 
                         <execution>

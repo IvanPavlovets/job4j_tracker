@@ -57,6 +57,29 @@ public class StartUI {
     }
 
     /**
+     * Запускт программы.
+     * Вариант запуска с помощью MemeTracker
+     *     public static void main(String[] args) {
+     *         Input console = new ValidateInput(new ConsoleInput());
+     *         Store tracker = new MemTracker();
+     *         StartUI startUI = new StartUI(console, tracker);
+     *         startUI.init();
+     *     }
+     * @param args
+     */
+    public static void main(String[] args) {
+        Input validate = new ValidateInput(new ConsoleInput());
+        try (Connection connection = loadConnection()) {
+            Store tracker = new SqlTracker(connection);
+            tracker.init();
+            StartUI startUI = new StartUI(validate, tracker);
+            startUI.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Переменные окружения используется для запуска liquibase,
      * но не используется в самом приложении.
      * Нам нужно добавить эту возможность так же.
@@ -86,32 +109,8 @@ public class StartUI {
         String driver = loadSysEnvIfNullThenConfig("JDBC_DRIVER", "driver-class-name", config);
         System.out.println("url=" + url);
         Class.forName(driver);
-        return DriverManager.getConnection(
-                url, username, password
-        );
+        return DriverManager.getConnection(url, username, password);
     }
 
-    /**
-     * Запускт программы.
-     * Вариант запуска с помощью MemeTracker
-     *     public static void main(String[] args) {
-     *         Input console = new ValidateInput(new ConsoleInput());
-     *         Store tracker = new MemTracker();
-     *         StartUI startUI = new StartUI(console, tracker);
-     *         startUI.init();
-     *     }
-     * @param args
-     */
-    public static void main(String[] args) {
-        Input validate = new ValidateInput(new ConsoleInput());
-        try (Connection connection = loadConnection()) {
-            Store tracker = new SqlTracker(connection);
-            tracker.init();
-            StartUI startUI = new StartUI(validate, tracker);
-            startUI.init();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 
