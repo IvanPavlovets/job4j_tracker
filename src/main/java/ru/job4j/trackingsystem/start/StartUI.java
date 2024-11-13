@@ -71,7 +71,6 @@ public class StartUI {
         Input validate = new ValidateInput(new ConsoleInput());
         try (Connection connection = loadConnection()) {
             Store tracker = new SqlTracker(connection);
-            tracker.init();
             StartUI startUI = new StartUI(validate, tracker);
             startUI.init();
         } catch (Exception e) {
