@@ -72,12 +72,12 @@ public class MenuTracker {
      * и инициализируем его передаными обьектами.
      */
     public void fillActions() {
-        this.actions.add(position++, this.new AddItem(0, "Добавить новую заявку."));
-        this.actions.add(position++, new ShowItems(1, "Показать все заявки системы."));
-        this.actions.add(position++, new EditItem(2, "Редактировать заявку."));
-        this.actions.add(position++, new DeleteItem(3, "Удалить заявку."));
-        this.actions.add(position++, new FindItemById(4, "Найти заявку по id."));
-        this.actions.add(position++, new FindItemByName(5, "Найти заявку по имени."));
+        this.actions.add(position++, this.new AddItem(0, "=== Добавить новую заявку ==="));
+        this.actions.add(position++, new ShowItems(1, "=== Показать все заявки системы ==="));
+        this.actions.add(position++, new EditItem(2, "=== Редактировать заявку ==="));
+        this.actions.add(position++, new DeleteItem(3, "=== Удалить заявку ==="));
+        this.actions.add(position++, new FindItemById(4, "=== Найти заявку по id ==="));
+        this.actions.add(position++, new FindItemByName(5, "=== Найти заявку по имени ==="));
     }
 
     /**
